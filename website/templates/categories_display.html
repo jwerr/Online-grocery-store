@@ -1,0 +1,65 @@
+<!-- display_categories.html -->
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+    %}
+<div class="jumbotron-fluid-">
+    <div class="add_category_button jumbotron bg-info text-center">
+        <h2>To add category click here</h2>
+        <a href="{{ url_for('views.index')}}" class="btn btn-dark">Add</a>
+      </div>
+    <div class="row">
+      {% for category in categories %}
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4 class="card-title">{{ category.category_id }}</h4>
+              <div class="btn-group">
+                <a
+                  href="{{ url_for('views.add_items', category_id=category.category_id) }}"
+                  class="btn btn-primary"
+                  >Add</a
+                >
+                <a
+                  href="{{ url_for('views.update_category', category_id=category.category_id) }}"
+                  class="btn btn-secondary"
+                  >Update</a
+                >
+                <form
+                  method="POST"
+                  action="{{ url_for('views.delete_category', category_id=category.category_id) }}"
+                  onsubmit="return confirm('Are you sure you want to delete this category and its products?');"
+                >
+                  <button type="submit" class="btn btn-danger text-center">
+                    Delete
+                  </button>
+                </form>
+              </div>
+              <!-- Add any other category information you want to display here -->
+            </div>
+            <div class="card-footer">
+              <div class="products-list text-left">
+                <h4>Products:</h4>
+                <ul>
+                  {% for product in category_products[category.category_id] %}
+                  <li>{{ product.name }} - {{ product.description }}</li>
+                  {% endfor %}
+                </ul>
+               </div>
+               <div class="product-action">
+                <form method="POST" action="{{ url_for('views.action') }}">
+                  <input
+                    type="hidden"
+                    name="category_id"
+                    value="{{ category.category_id }}"
+                  />
+                  <button type="submit" class="btn btn-primary text-center">
+                    Action
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

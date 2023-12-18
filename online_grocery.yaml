@@ -1,0 +1,447 @@
+openapi: 3.1.0
+info:
+  title: Online Grocery store
+  version: 1.0.
+  description: |
+    Documentation example. You can add various kinds of **documentation** here.
+      It takes both markdown and HTML.
+      <h2>ER Diagram </h2>
+      <img src="https://mermaid.ink/img/pako:eNqVks9qwzAMxl_F-Ny-QK7btTAou4xAELGSGhIpk2VKSPPuc_6WsFHYTfr5k_TZ1mBLdmgzi_LuoRZoczLmM6CYx-N85sG8gWLN0pvM8J3CdLyjVfIh7GKpSVEyKfhJtbcZpsgYT6kmpd4teVDxVBtswTcH0kEId5ajrPIStCBoccLj0v7p4_WMcpUVG990Mflb4dJyu8jrfpuNHUTyeqyQNLL4jb8jkHrt_6ZF4Obfzmfj9mRblPSULv3kbD63esNk02YpdFhBbDS3OY1JClH52lNpswqagCcbO5cGrf-_0w7oi_mZo_PKclnWZd6a8QfTMsYX?type=png"/>
+      <table>
+        <thead>
+          <th> Resource </th>
+          <th> Error code </th>
+          <th> Message </th>
+        </thead>
+        <tbody>
+        <tr>
+          <td> Resource </td>
+          <td> Error code </td>
+          <td> Message </td>
+        </tr>
+        </tbody>
+      </table>
+servers:
+  - url: http://127.0.0.1:5000/
+paths:
+  /api/category:
+    post:
+      summary: Create a new category
+      description: Endpoint to add a new category to the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: string
+                  example: Fruits and Vegetables
+                user_id:
+                  type: integer
+                  example: 1
+      responses:
+        '201':
+          description: Category created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  action:
+                    type: string
+                    example: POST
+        '400':
+          description: Bad request. Invalid data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+  /api/user/{user_id}/category/{category_id}:
+    delete:
+      summary: Delete a category for a particular user
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          description: ID of the user
+          schema:
+            type: integer
+        - in: path
+          name: category_id
+          required: true
+          description: ID of the category
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Category successfully deleted
+        '404':
+          description: Category not found for the provided user_id
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          description: ID of the user
+          schema:
+            type: integer
+        - in: path
+          name: category_id
+          required: true
+          description: ID of the category
+          schema:
+            type: string
+      operationId: ''
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: category object
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  category_id:
+                    type: string
+                    example: Fruits and Vegetables
+                  user_id:
+                    type: integer
+                    example: 1
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+        '401':
+          description: Unauthorized - User not logged in
+        '500':
+          description: Internal Server error.
+    put:
+      summary: Update a specific category based on user_id and category_id
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          description: ID of the user
+          schema:
+            type: integer
+        - in: path
+          name: category_id
+          required: true
+          description: ID of the category
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: string
+      responses:
+        '200':
+          description: Category updated successfully
+        '404':
+          description: Category not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  paths: null
+  /api/user/{user_id}/category/{category_id}/product:
+    post:
+      summary: Add a new product for a specific category
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          description: ID of the user
+          schema:
+            type: integer
+        - in: path
+          name: category_id
+          required: true
+          description: ID of the category
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the product
+                description:
+                  type: string
+                  description: Description of the product
+                unit:
+                  type: string
+                  description: Unit of the product (e.g., kg, piece, etc.)
+                rate_unit:
+                  type: integer
+                  description: Rate of the product per unit
+                quantity:
+                  type: integer
+                  description: Total quantity of the product available
+      responses:
+        '201':
+          description: Product added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success message
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for bad request
+        '404':
+          description: Category not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message for category not found
+    get:
+      summary: Get products based on user_id and category_id
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          description: ID of the user
+          schema:
+            type: integer
+        - in: path
+          name: category_id
+          required: true
+          description: ID of the category
+          schema:
+            type: string
+        - in: query
+          name: product_name
+          required: false
+          description: Name of the product
+          schema:
+            type: string
+      operationId: get_products
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    unit:
+                      type: string
+                    rate_unit:
+                      type: integer
+                    quantity:
+                      type: integer
+                    quantity_sold:
+                      type: integer
+        '404':
+          description: Category not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /api/user/{user_id}/category/{category_id}/product/{product_name}:
+    delete:
+      summary: Delete a product based on user_id, category_id, and product name
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          description: ID of the user
+          schema:
+            type: integer
+        - in: path
+          name: category_id
+          required: true
+          description: ID of the category
+          schema:
+            type: string
+        - in: path
+          name: product_name
+          required: true
+          description: Name of the product
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Product deleted successfully
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    put:
+      summary: >-
+        Update a specific product based on user_id, category_id, and
+        product_name
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          description: ID of the user
+          schema:
+            type: integer
+        - in: path
+          name: category_id
+          required: true
+          description: ID of the category
+          schema:
+            type: string
+        - in: path
+          name: product_name
+          required: true
+          description: Name of the product
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                unit:
+                  type: string
+                rate_unit:
+                  type: integer
+                quantity:
+                  type: integer
+                quantity_sold:
+                  type: integer
+              required:
+                - name
+                - description
+                - unit
+                - rate_unit
+                - quantity
+                - quantity_sold
+      responses:
+        '200':
+          description: Product updated successfully
+        '404':
+          description: >-
+            Product not found for the provided user_id, category_id, and
+            product_name
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /api/categories:
+    get:
+      summary: Get all categories
+      description: Fetch all categories from the database.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    category_id:
+                      type: string
+                    user_id:
+                      type: integer
+        '404':
+          description: Category not found
+  /api/products:
+    get:
+      summary: Get all products
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        unit:
+          type: string
+        rate_unit:
+          type: number
+        quantity:
+          type: number
+        quantity_sold:
+          type: number

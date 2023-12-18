@@ -1,0 +1,11 @@
+/* styles.css */
+
+.editing-buttons {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .update-delete-container {
+    margin-right: 10px;
+  }
+  

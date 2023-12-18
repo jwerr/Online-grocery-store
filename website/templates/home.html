@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<!-- category_products.html -->
+
+  <div class="container mt-3">
+    <h2>Products for {{category.category_id}}</h2>
+    <p>The products added for the particular category will be displayed here....</p>            
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          
+          <th>Product name</th>
+          <th>Product Description</th>
+          <th>Product unit</th>
+          <th>Product rate per unit</th>
+          <th>Product Quantity</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+        <tr>
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.unit }}</td>
+          <td>{{ product.rate_unit }}</td>
+          <td>{{ product.quantity }}</td>
+          <td><a href="{{ url_for('views.update_product', product_id=product.id) }}" class="btn btn-primary">Update</a></td>
+          <td><a href="{{ url_for('views.delete_product', product_id=product.id) }}" class="btn btn-danger">Delete</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="mt-3">
+    <a href="{{ url_for('views.display_categories') }}" class="btn btn-secondary">Back to Categories page</a>
+</div>
+  
+{% endblock %}

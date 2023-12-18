@@ -1,0 +1,51 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+    %}
+   
+    
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Selected Product</title>
+        <!-- Add any necessary CSS stylesheets here -->
+    </head>
+    <body>
+        <div class="container">
+            <h2>Selected Product Details</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ selected_product.name }}</h5>
+                    <p class="card-text">{{ selected_product.description }}</p>
+                    <p>Unit: {{ selected_product.unit }}</p>
+                    <p>Rate per Unit: {{ selected_product.rate_unit }}</p>
+                    
+                    <!-- Add the form to enter the quantity -->
+                    <form action="{{ url_for('views.calculate_and_add_to_cart', product_id=selected_product.id)}}" method="POST">
+
+                        <div class="form-group">
+                            <label for="quantity">Enter Quantity:</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+    
+                    <!-- Display the calculated amount -->
+                    {% if amount %}
+                        <div class="form-group mt-3">
+                            <label for="amount">Amount:</label>
+                            <input type="text" class="form-control" id="amount" value="{{ amount }}" readonly>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    
+        <!-- Add any additional content or scripts here -->
+    
+    </body>
+    </html>
+    
+    
+        
+    
+    
+{% endblock %}

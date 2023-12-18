@@ -1,0 +1,57 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content %}
+<style>
+    /* Define custom CSS for the product cards */
+    .product-card {
+        display: inline-block;
+        width: 200px; /* Set the width of each product card */
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: center;
+        background-color: #f9f9f9;
+    }
+
+    .product-card h5 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .product-card p {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .product-card .btn {
+        width: 100%;
+    }
+
+    /* Custom CSS for the out of stock message */
+    .out-of-stock {
+        color: red;
+        font-size: 14px;
+    }
+</style>
+
+{% for category_name, products in products_by_category.items() %}
+<h2>{{ category_name }}</h2>
+<div class="row">
+    {% for product in products %}
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card h-100 product-card">
+            <div class="card-body">
+                <h3 class="card-title">{{ product.name }}</h3>
+                {% if product.quantity == 0 %}
+                <p class="out-of-stock">Out of Stock</p>
+                {% else %}
+                <p class="card-text">₹{{ product.rate_unit }}/{{ product.unit }}</p>
+                <a href="{{ url_for('views.add_to_cart', product_id=product.id) }}" class="btn btn-primary">Buy</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+</div>
+{% endblock %}

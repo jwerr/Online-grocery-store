@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
+
+<div class="container bg-light">
+    <form method="POST" action="/process_selection">
+        <h3 align="center">Add Category</h3>
+        <div class="form-group">
+            <label for="product_name">Category name</label>
+            <input
+                type="text" 
+                class="form-control"
+                id="category_name"
+                name="selected_item" 
+                placeholder="Enter Category name"
+            />
+        </div>
+            <br>
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+    </div>
+</div>
+
+    
+
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<!--vertiical padding-->
+
+<style>
+  .category-box {
+    /* Add spacing between side-by-side boxes */
+    margin-right: 10px; /* Adjust this value as needed for your desired spacing */
+  }
+
+  /* Clear the right margin for the last category box in each row */
+  @media (min-width: 768px) {
+    .category-box:nth-child(4n) {
+      margin-right: 0;
+    }
+  }
+</style>
+<!-- Content Area -->
+<div class="bg-lighter formSpace" style="position: relative">
+  <div class="container-fluid py-3">
+    <div class="current-items">
+      <div class="add_category_button jumbotron bg-info text-center">
+        <h2>To add category click here</h2>
+        <a href="{{ url_for('views.index')}}" class="btn btn-dark">Add</a>
+      </div>
+      <div class="current-items-content">
+        <h2 class="items-heading">Category added by you</h2>
+        <div class="category-list row mb-5">
+          {% for category in categories %}
+          <div
+            class="category-box col-lg-3 col-sm-6 col-12 jumbotron text-center mb-4"
+          >
+            <div class="category-thumbnail">
+              <h3 class="category-thumbnail-text">
+                {{ category.category_id }}
+              </h3>
+            </div>
+            <br />
+            <div class="btn-group">
+              <a
+                href="{{ url_for('views.add_items', category_id=category.category_id) }}"
+                class="btn btn-primary"
+                >Add</a
+              >
+              <a
+                href="{{ url_for('views.update_category', category_id=category.category_id) }}"
+                class="btn btn-primary"
+                >Update</a
+              >
+              <form
+                method="POST"
+                action="{{ url_for('views.delete_category', category_id=category.category_id) }}"
+                onsubmit="return confirm('Are you sure you want to delete this category and its products?');"
+              >
+                <button type="submit" class="btn btn-danger text-center">
+                  Delete
+                </button>
+              </form>
+            </div>
+            <br />
+            <div class="products-list text-left">
+              <h4>Products:</h4>
+              <ul>
+                {% for product in category_products[category.category_id] %}
+                <li>{{ product.name }} - {{ product.description }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="product-action">
+              <form method="POST" action="{{ url_for('views.action') }}">
+                <input
+                  type="hidden"
+                  name="category_id"
+                  value="{{ category.category_id }}"
+                />
+                <button type="submit" class="btn btn-primary text-center">
+                  Action
+                </button>
+              </form>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

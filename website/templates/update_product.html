@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+    %}
+    <!-- update_product.html -->
+
+<div class="container">
+    <h2>Update Product</h2>
+    <form method="POST" action="{{ url_for('views.update_product', product_id=product.id) }}">
+      <div class="form-group">
+        <label for="product_name">Product Name</label>
+        <input type="text" class="form-control" id="product_name" name="product_name" value="{{ product.name }}">
+      </div>
+      <div class="form-group">
+        <label for="product_description">Product Description</label>
+        <input type="text" class="form-control" id="product_description" name="product_description" value="{{ product.description }}">
+      </div>
+      <div class="form-group">
+        <label for="unit">Unit</label>
+        <input type="text" class="form-control" id="unit" name="unit" value="{{ product.unit }}">
+      </div>
+      <div class="form-group">
+        <label for="rate_unit">Rate per unit</label>
+        <input type="number" class="form-control" id="rate_unit" name="rate_unit" value="{{ product.rate_unit }}">
+      </div>
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="number" class="form-control" id="quantity" name="quantity" value="{{ product.quantity }}">
+      </div>
+      <button type="submit" class="btn btn-primary">Update Product</button>
+    </form>
+  </div>
+  
+      
+    {% endblock %}
+    

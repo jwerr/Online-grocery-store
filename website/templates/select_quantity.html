@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+    %}
+    <h2>Select Quantity for {{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+
+    <form action="{{ url_for('views.add_to_cart', product_id=product.id) }}" method="POST">
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" class="form-control" id="quantity" name="quantity" min="1" required>
+        </div>
+        <a href="{{ url_for('views.add_to_cart', product_id=product.id) }}" class="btn btn-primary">Add to cart</a>
+    </form>
+{% endblock %}

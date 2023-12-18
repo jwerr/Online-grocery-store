@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+    %}
+<div class="container">
+    <h2>Update Category</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label for="new_category_id">New Category ID</label>
+            <input type="text" class="form-control" id="new_category_id" name="new_category_id" value="{{ category.category_id }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Category</button>
+    </form>
+</div>
+{% endblock %}

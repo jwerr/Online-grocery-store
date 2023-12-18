@@ -1,0 +1,62 @@
+{% extends "base.html" %} {% block title %}Login{% endblock %} {% block content
+    %}
+  
+    <form method="POST">
+      <h3 align="center">Add Items</h3>
+      <div class="form-group">
+          <label for="product_name">Product Name</label>
+          <input
+              type="text" 
+              class="form-control"
+              id="product_name"
+              name="name" 
+              placeholder="Enter product name"
+          />
+      </div>
+      <div class="form-group">
+          <label for="product_description">Product Description</label>
+          <input
+              type="text" 
+              class="form-control"
+              id="product_description"
+              name="description" 
+              placeholder="Enter product description"
+          />
+      </div>
+      <div class="form-group">
+        <label for="rate">Unit</label>
+        <input
+            type="text" 
+            class="form-control"
+            id="unit"
+            name="unit"
+            placeholder="Enter the unit"
+        />
+      </div>
+      <div class="form-group">
+          <label for="rate">Rate/unit</label>
+          <input
+              type="text" 
+              class="form-control"
+              id="rate_unit"
+              name="rate_unit"
+              placeholder="Enter rate per unit"
+          />
+      </div>
+      <div class="form-group">
+          <label for="quantity">Quantity</label>
+          <input
+              type="text" 
+              class="form-control"
+              id="quantity"
+              name="quantity" 
+              placeholder="Enter quantity"
+          />
+      </div>
+      <br />
+      
+      <button type="submit" class="btn btn-primary">Add</button>
+  </form>
+  
+    {% endblock %}
+    

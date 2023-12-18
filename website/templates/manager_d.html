@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Manager Dashboard{% endblock %}
+{% block content %}
+    <h2>Welcome, {{ current_user.first_name }}!</h2>
+    <h3>Your Products</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Quantity Sold</th>
+                <th>Total Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product_detail in product_details %}
+                <tr>
+                    <td>{{ product_detail.product.name }}</td>
+                    <td>{{ product_detail.quantity_sold }}</td>
+                    <td>{{ product_detail.total_amount }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="mt-3">
+        <a href="{{ url_for('views.display_categories') }}" class="btn btn-secondary">Back to Categories page</a>
+    </div>
+{% endblock %}
